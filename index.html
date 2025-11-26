@@ -1,108 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rafaela ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rafaela, você é o amor da minha vida ❤</title>
+
 <style>
-html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',sans-serif;color:white;background:black;}
-#startScreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at top,#3a0a45,#0a0010);z-index:10;}
-#startBtn{padding:20px 40px;border-radius:40px;border:none;font-size:22px;background:#ff4d8d;color:white;cursor:pointer;box-shadow:0 0 20px #ff4d8d;}
-#scene{position:fixed;inset:0;background:linear-gradient(120deg,#200018,#55002b);display:none;}
-#gallery{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;}
-.photo{max-width:80%;max-height:70%;border-radius:25px;box-shadow:0 0 30px rgba(255,0,100,0.7);margin-bottom:20px;opacity:0;transition:opacity 2s;}
-#textBox{font-size:26px;text-align:center;min-height:40px;text-shadow:0 0 10px pink;}
-.heart{position:fixed;color:#ff5fa2;font-size:20px;pointer-events:none;animation:float 6s linear infinite;}
-@keyframes float{0%{transform:translateY(100vh) scale(1) rotate(0deg);}100%{transform:translateY(-10vh) scale(1.5) rotate(360deg);opacity:0;}}
-#finalMessage{position:fixed;inset:0;display:none;align-items:center;justify-content:center;font-size:40px;text-align:center;background:rgba(0,0,0,0.6);z-index:5;}
-#music{display:none;}
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#telaInicial {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #220000, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#btnIniciar {
+    font-size: 30px;
+    padding: 20px 40px;
+    border-radius: 50px;
+    border: none;
+    background: crimson;
+    color: white;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#frases {
+    position: absolute;
+    color: white;
+    font-size: 25px;
+    width: 100%;
+    top: 20%;
+    text-shadow: 0 0 10px pink;
+}
+
+.frase {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+#final {
+    position: absolute;
+    width: 100%;
+    bottom: 20%;
+    font-size: 40px;
+    color: pink;
+    text-shadow: 0 0 15px red;
+    display: none;
+}
+
+.foto {
+    position: absolute;
+    width: 200px;
+    border-radius: 20px;
+    animation: float 8s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-300px); }
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 20px;
+    animation: subir 5s infinite;
+}
+
+@keyframes subir {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
 </style>
 </head>
+
 <body>
-<div id="startScreen">
-  <h1>Prepare seu coração 💖</h1>
-  <button id="startBtn">Iniciar Surpresa</button>
-</div>
-
-<div id="scene">
-  <div id="gallery">
-    <img id="photo" class="photo" src=""/>
-    <div id="textBox"></div>
-  </div>
-</div>
-
-<div id="finalMessage">Rafaela,<br>você é o amor da minha vida 💖</div>
 
 <!-- Música -->
-<iframe id="music" width="0" height="0" src="https://www.youtube.com/embed/BkpqU3gdjlw?enablejsapi=1&loop=1&playlist=BkpqU3gdjlw"></iframe>
+<audio id="bgm" src="musica.mp3" loop></audio>
+
+<!-- Tela inicial -->
+<div id="telaInicial">
+    <button id="btnIniciar" onclick="iniciarTudo()">Iniciar Surpresa ❤</button>
+</div>
+
+<div id="frases">
+    <div class="frase">Não vejo a hora de te ver...</div>
+    <div class="frase">Você é meu mundo 💖</div>
+    <div class="frase">Te amo demais...</div>
+</div>
+
+<div id="final">Rafaela, você é o amor da minha vida 💕</div>
+
+<!-- Fotos -->
+<img src="foto1.jpg" class="foto" style="left:10%;">
+<img src="foto2.jpg" class="foto" style="right:10%;">
+<img src="foto3.jpg" class="foto" style="left:40%;">
 
 <script>
-const fotos = [
-  "momentossss.jpeg",
-  "usss.jpeg",
-  "wee love.jpeg",
-  "WhatsApp Image 2025-11-26 at 02.22.55.jpeg",
-  "WhatsApp Image 2025-11-26 at 02.22.56 (1).jpeg"
-];
+function iniciarTudo() {
 
-const frases = [
-  "Não vejo a hora de te ver 💕",
-  "Cada momento com você é especial",
-  "Seu sorriso é meu lugar favorito",
-  "Você mudou tudo em mim...",
-  "Te amo mais a cada dia ❤️"
-];
+    document.getElementById("telaInicial").style.display = "none";
 
-let index = 0;
-const photoEl = document.getElementById('photo');
-const textBox = document.getElementById('textBox');
+    // Tocar música
+    const audio = document.getElementById("bgm");
+    audio.play().catch(e => console.log("Erro ao tocar música:", e));
 
-function mostrarSlide(){
-  if(index >= fotos.length){
-    document.getElementById('finalMessage').style.display='flex';
-    return;
-  }
-  photoEl.style.opacity = 0;
-  setTimeout(()=>{
-    photoEl.src = fotos[index];
-    photoEl.style.opacity = 1;
-    typeWriter(frases[index] || "");
-    index++;
-  },1000);
+    // Frases animadas
+    let frases = document.querySelectorAll(".frase");
+    frases.forEach((frase, i) => {
+        setTimeout(() => {
+            frase.style.opacity = 1;
+        }, i * 3000);
+    });
+
+    // Mostrar mensagem final
+    setTimeout(() => {
+        document.getElementById("final").style.display = "block";
+    }, 10000);
+
+    // Corações
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤";
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = (Math.random() * 30 + 15) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+    }, 400);
 }
-
-function typeWriter(text){
-  textBox.innerHTML="";
-  let i=0;
-  let interval=setInterval(()=>{
-    if(i<text.length){textBox.innerHTML += text.charAt(i);i++;}
-    else{clearInterval(interval);}
-  },80);
-}
-
-// Corações
-function criarCoracao(x){
-  const h=document.createElement('div');
-  h.className='heart';
-  h.innerText='❤';
-  h.style.left = (x || Math.random()*window.innerWidth)+'px';
-  h.style.top = window.innerHeight + 'px';
-  h.style.fontSize = (15+Math.random()*25)+'px';
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-}
-setInterval(()=>criarCoracao(),300);
-
-document.body.addEventListener('mousemove',(e)=>criarCoracao(e.clientX));
-
-// Iniciar
-document.getElementById('startBtn').onclick=()=>{
-  document.getElementById('startScreen').style.display='none';
-  document.getElementById('scene').style.display='block';
-  document.getElementById('music').src += "&autoplay=1";
-  mostrarSlide();
-  setInterval(mostrarSlide,6000);
-};
 </script>
+
 </body>
 </html>
